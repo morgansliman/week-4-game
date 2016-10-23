@@ -44,19 +44,24 @@ $(document).ready(function() {
 	darthSidious.createElement('.all');
 	darthMaul.createElement('.all');
 
-	var balance = {
-		"Obi-Wan Kenobi": obiWanKenobi,
-		"Luke Skywalker": lukeSkywalker,
-		"Darth Sidious": darthSidious,
-		"Darth Maul": darthMaul
-	};
-
 	$(".object-wrapper").on("click", function() {
 		if ($('.player').children().length == 0) {
-			var k = $(this).data('name');
-			balance[k].createElement('.player');
+			var p = $(this).data('name');
 
-			
+			$('.player').append($('.all').children('[data-name="' + p + '"]'));
+			$('.enemy').append($('.all').children());
+			$('.all').css('display', 'none');
+			$('.enemy').css('display', 'block');
+			$('.enemy').children('.character').css({
+				'background-color': 'red',
+				'border': '2px solid black'
+			});
 		}
-	})
+
+		if ($('.defender').children().length == 0) {
+			var d = $(this).data('name');
+			console.log(d);
+			$('.defender').append($('.enemy').children('[data-name="' + d + '"]'));
+		}
+	});
 });

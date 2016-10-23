@@ -28,10 +28,6 @@ h1 {
 	width: 170px;
 }
 
-.hide {
-	display: hidden;
-}
-
 .object-wrapper {
 	display: inline;
 	float: left;
@@ -58,4 +54,8 @@ h1 {
 .main {
 	margin-top: 5px;
 	margin-bottom: 5px;
+}
+
+.hid {
+	display: none;
 }
