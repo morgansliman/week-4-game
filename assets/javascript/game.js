@@ -7,6 +7,10 @@ $(document).ready(function() {
 		this.img_source = "assets/images/" + name + ".jpg";
 	}
 
+	Character.prototype.damage = function(multiplier) {
+		return this.attack * multiplier;
+	}
+
 	Character.prototype.createElement = function(parent) {
 		var div = $("<div>", {
 			"class": "character object-wrapper",
@@ -16,8 +20,7 @@ $(document).ready(function() {
 		});
 
 		var p_name = $("<p>", {
-			"class": "name object-text",
-			"data-name": this.name
+			"class": "name object-text"
 		}).text(this.name);
 
 		var img = $("<img>", {
@@ -27,7 +30,6 @@ $(document).ready(function() {
 
 		var p_health = $("<p>", {
 			"class": "health object-text",
-			"data-health": this.health
 		}).text(this.health);
 
 		div.append(p_name, img, p_health);
@@ -43,6 +45,13 @@ $(document).ready(function() {
 	lukeSkywalker.createElement('.all');
 	darthSidious.createElement('.all');
 	darthMaul.createElement('.all');
+
+	var balance = {
+		'Obi-Wan Kenobi': obiWanKenobi,
+		'Luke Skywalker': lukeSkywalker,
+		'Darth Sidious': darthSidious,
+		'Darth Maul': darthMaul
+	}
 
 	$(".object-wrapper").on("click", function() {
 		if ($('.player').children().length == 0) {
@@ -60,8 +69,31 @@ $(document).ready(function() {
 
 		if ($('.defender').children().length == 0) {
 			var d = $(this).data('name');
-			console.log(d);
 			$('.defender').append($('.enemy').children('[data-name="' + d + '"]'));
+			$('.defender').children('.character').css({
+				'background-color': 'black',
+				'border': '2px solid red'
+			});
+			$('.defender').find('.object-text').css('color', 'white');
 		}
+	});
+
+	var i = 1;
+	$('.attack-button').on('click', function() {
+		var player = $('.player').children()[0];
+		var defender = $('.defender').children()[0];
+
+		var playerChar = balance[$(player).data('name')];
+		var defenderChar = balance[$(defender).data('name')];
+
+		$('.status-text').css('display', 'block');
+		$('.top').text(
+			'You attacked ' + $(defender).data('name') + ' for ' + playerChar.damage(i) + ' damage.' 
+		);
+		$('.bottom').text(
+			$(defender).data('name') + ' attacked you back for ' + $(defender).data('attack') + ' damage.'
+		);
+
+		i += 1;
 	});
 });
