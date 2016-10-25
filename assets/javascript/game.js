@@ -42,10 +42,10 @@ $(document).ready(function() {
 		$(parent).append(div);
 	}
 
-	var obiWanKenobi = new Character("Obi-Wan Kenobi", 120, 8, );
-	var lukeSkywalker = new Character("Luke Skywalker", 100, , 5);
-	var darthSidious = new Character("Darth Sidious", 150, , 20);
-	var darthMaul = new Character("Darth Maul", 180, , 25);
+	var obiWanKenobi = new Character("Obi-Wan Kenobi", 145, 11, 12);
+	var lukeSkywalker = new Character("Luke Skywalker", 145, 10, 11);
+	var darthSidious = new Character("Darth Sidious", 150, 12, 16);
+	var darthMaul = new Character("Darth Maul", 155, 13, 16);
 	var ewok = new Character("Ewok", 9001, 9001);
 
 	obiWanKenobi.createElement('.all');
@@ -64,6 +64,10 @@ $(document).ready(function() {
 	
 
 	$(".object-wrapper").on("click", function() {
+		if (!$('.all').children('[data-name="Ewok"]').is(':visible')) {
+			$('.all').children('[data-name="Ewok"]').remove();
+		}
+
 		if ($('.player').children().length == 0) {
 			var p = $(this).data('name');
 
